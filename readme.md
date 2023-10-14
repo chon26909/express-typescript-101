@@ -31,8 +31,8 @@ npm tsc --init
 
 edit file tsconfig.json
 
-"target": "ES2022"
-
+> "target": "ES2022"
+>
 > "rootDir": "./src"
 >
 > "outDir": "./dist"
