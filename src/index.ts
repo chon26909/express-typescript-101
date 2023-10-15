@@ -1,118 +1,106 @@
 console.clear();
+// ----------------- Variable -----------------
+const gravity = 9.8;
+const username: string = 'Santa';
+let sum = 0;
+sum += 2;
 
-// variables scope
-var a = "Somchai";
-let b = "b";
-const c = "c";
+// console.log(username);
+console.log(sum);
 
-b = a;
+// ----------------- Function -----------------
+function sayHello() {
+    console.log('Hello!');
+}
 
-// console.log("a=", a, "b=", b, "c  =", c);
+function greeting(name: string) {
+    return 'Hi, ' + name;
+}
+console.log(greeting('Winny'));
 
-// let username = "Somchai";
+// ----------------- Arrow Function -----------------
+function getFullname(firstname: string, lastname: string): string {
+    return firstname + ' ' + lastname;
+}
 
-// const exampleA = function () {
-//   console.log(username);
+const getFullnameA = function (firstname: string, lastname: string) {
+    return firstname + ' ' + lastname;
+};
+// arrow function () => { }
+const getFullnameB = (firstname: string, lastname: string) => {
+    return firstname + ' ' + lastname;
+};
+
+// ----------------- Array and Object -----------------
+
+// array
+const animal: string[] = ['car', 'dog', 'rat'];
+animal.push('fish');
+animal.pop();
+
+// object
+const user = {
+    firstname: 'John',
+    lastaname: 'Smith',
+    age: 18
+};
+
+const users = [];
+
+// ----------------- Type Aliases and Interface -----------------
+
+// Pick
+export interface IPagination {
+    total: number;
+    limit: number;
+    skip: number;
+}
+
+export type IUserListRequest = Pick<IPagination, 'limit' | 'skip'>;
+
+//
+
+// ----------------- Enum type
+enum Direction {
+    Up = 1,
+    Down = 2,
+    Left = 3,
+    Right = 4
+}
+
+type ShippingStatus = 'shipping' | 'success' | 'failed' | 'cancelled';
+
+// function getS(status: Direction) {}
+
+// getS(Direction.Down);
+
+// console.log('Shipping');
+
+// ----------------- Callback Function -----------------
+// const displayCount = (count: number, callbackFn: (message: string) => void) => {
+//     for (let i = 0; i < count; i++) {
+//         console.log('count ', i);
+//     }
+//     callbackFn('finished');
 // };
-
-// // function expression
-// const exampleB = () => {
-//   console.log("example");
+// const displayEnd = (message: string) => {
+//     console.log(message);
 // };
+// displayCount(5, displayEnd);
 
-// exampleB();
+// ----------------- Promise -----------------
+const todoListUrl = 'https://dummyjson.com/todos?limit=3&skip=0';
 
-// type
-type Person = {
-  name: string;
+const getTodo = async () => {
+    const res = fetch(todoListUrl)
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => console.log('error', err));
+
+    console.log('res', res);
 };
-
-// interface
-interface ICheckOlderTeen {
-  age: number;
-  older: boolean;
-}
-
-const checkOlderTeen = (age: number): ICheckOlderTeen => {
-  if (age > 25) {
-    return {
-      age: age,
-      older: true,
-    };
-  }
-
-  return {
-    age: age,
-    older: false,
-  };
-};
-
-console.log("checkOlder", checkOlderTeen(30));
-
-interface IAnimal {
-  type: string;
-  age?: number;
-}
-
-interface ICat extends IAnimal {
-  name: string;
-  owner?: string;
-}
-
-const cat: ICat = {
-  name: "max",
-  age: 10,
-  type: "เลี้ยงลูกด้วยนม",
-};
-
-interface IOwner {
-  firstname: string;
-  lastname: string;
-  cats: ICat[];
-}
-
-const cats: ICat[] = [
-  {
-    name: "Mali",
-    age: 9,
-    type: "เลี้ยงลูกด้วยนม",
-  },
-  {
-    name: "Poa",
-    age: 7,
-    type: "เลี้ยงลูกด้วยนม",
-  },
-];
-
-const ownerCat: IOwner[] = [
-  {
-    firstname: "Chalee",
-    lastname: "Champ",
-    cats: cats,
-  },
-];
-
-console.log("ownerCat", JSON.stringify(ownerCat, null, 5));
-
-//const totalCate = ownerCat[0].cats.length()
-
-const countMyCat = (data: IOwner[]) => {
-  const result = data.map((row: IOwner) => {
-    return {
-      name: row.firstname,
-      count_cat: row.cats.length,
-      cat_name: row.cats.map((cat) => cat.name),
-      cat_name2: row.cats.map(({ name, type }) => ({ name, type })),
-      cat_name3: row.cats.map(({ name, type }) => {
-        return {
-          name,
-          type,
-        };
-      }),
-    };
-  });
-
-  return result;
-};
-
-console.log("countMyCat", JSON.stringify(countMyCat(ownerCat), null, 5));
+getTodo();
