@@ -26,7 +26,7 @@ npm install -D typescript ts-node
 ### Init Typescript config
 
 ```
-npm tsc --init
+npx tsc --init
 ```
 
 edit file tsconfig.json
